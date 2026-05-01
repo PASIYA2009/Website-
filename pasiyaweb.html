@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasidu Eshan | Elite Web Architect</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --dark-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Desktop Custom Cursor */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            #cursor {
+                position: fixed; width: 20px; height: 20px;
+                background: var(--primary); border-radius: 50%;
+                pointer-events: none; z-index: 9999;
+                mix-blend-mode: difference; transition: transform 0.1s;
+            }
+        }
+
+        body { background-color: var(--dark-bg); color: #ffffff; overflow-x: hidden; line-height: 1.6; }
+
+        /* Animated Mesh Background */
+        .mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(0, 242, 255, 0.07) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(112, 0, 255, 0.07) 0%, transparent 35%);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 8%; background: var(--glass-bg);
+            backdrop-filter: blur(25px); z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 22px; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        .nav-links a {
+            text-decoration: none; color: #777; margin-left: 30px;
+            font-size: 13px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 160px 20px 100px 20px; /* Top padding to fix photo overlap */
+        }
+        
+        .hero-img-wrap { position: relative; margin-bottom: 35px; }
+        .hero img {
+            width: 150px; height: 150px; border-radius: 40px;
+            border: 2px solid var(--border); padding: 5px;
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .tag-pill {
+            font-size: 11px; font-weight: 700; color: var(--primary);
+            background: rgba(0, 242, 255, 0.1); border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 5px 15px; border-radius: 20px; text-transform: uppercase; margin: 5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 9vw, 5.5rem); font-weight: 800;
+            letter-spacing: -3px; line-height: 0.95; margin-bottom: 20px;
+            background: linear-gradient(to bottom, #fff 60%, #555);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        /* Buttons container */
+        .btn-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; max-width: 500px; margin-top: 40px; }
+        .btn {
+            padding: 18px 20px; border-radius: 16px; font-weight: 700;
+            text-decoration: none; transition: 0.4s; font-size: 13px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; text-transform: uppercase; border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02); color: #fff;
+        }
+        .btn-hire { grid-column: span 2; background: #fff; color: #000; border: none; font-size: 15px; }
+        .btn:hover { transform: translateY(-5px); background: #fff; color: #000; box-shadow: 0 15px 30px rgba(0, 242, 255, 0.2); }
+
+        /* About & Skills Section */
+        section { padding: 100px 10%; }
+        .title { font-size: 40px; font-weight: 800; text-align: center; margin-bottom: 60px; }
+        .card {
+            background: rgba(255, 255, 255, 0.02); padding: 50px; border-radius: 32px;
+            border: 1px solid var(--border); backdrop-filter: blur(10px);
+        }
+
+        .skill-bar-wrap { margin-bottom: 20px; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+        .bar-bg { width: 100%; height: 8px; background: #111; border-radius: 10px; }
+        .bar-fill { height: 100%; background: var(--primary); border-radius: 10px; transition: 1.5s ease-in-out; }
+
+        /* Comments Section */
+        .comment-input {
+            width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border); border-radius: 12px;
+            color: #fff; margin-bottom: 15px; outline: none;
+        }
+        .comment-btn { padding: 12px 25px; background: var(--primary); color: #000; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+
+        /* Floating Audio Control */
+        #musicBtn {
+            position: fixed; bottom: 35px; right: 35px; width: 55px; height: 55px; border-radius: 50%;
+            background: #fff; color: #000; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        footer { text-align: center; padding: 60px; color: #333; font-size: 12px; letter-spacing: 2px; border-top: 1px solid var(--border); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding-top: 140px; }
+            .btn-container { grid-template-columns: 1fr; }
+            .btn-hire { grid-column: span 1; }
+            section { padding: 80px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div class="mesh"></div>
+
+    <audio id="bgPlayer" loop>
+        <source src="https://files.catbox.moe/ptpxfd.mp3">
+    </audio>
+
+    <nav>
+        <a href="#" class="logo">PASIYA<span>.</span></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#comments">Feed</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-img-wrap" data-aos="zoom-in">
+            <img src="https://files.catbox.moe/0vapo9.jpg" alt="Pasidu Eshan Profile">
+        </div>
+
+        <div data-aos="fade-up">
+            <span class="tag-pill">#FullStack_Dev</span>
+            <span class="tag-pill">#UI_Designer</span>
+            <span class="tag-pill">#Automation_Expert</span>
+        </div>
+        
+        <h1 data-aos="fade-up">Pasidu Eshan</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Crafting high-performance digital ecosystems and immersive web experiences with precision and passion.</p>
+        
+        <div class="btn-container" data-aos="fade-up" data-aos-delay="200">
+            <a href="https://wa.me/94741500792" class="btn btn-hire">Hire For Projects</a>
+            <a href="https://wa.me/94741500792" class="btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#" class="btn"><i class="fas fa-robot"></i> WhatsApp Bot</a>
+            <a href="https://www.youtube.com/@PAZIYA_Gaming" class="btn"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="#" class="btn"><i class="fas fa-bullhorn"></i> WA Channel</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="title" data-aos="fade-up">About My Vision</h2>
+        <div class="card" data-aos="fade-up">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">Who am I?</h3>
+                    <p style="color: #aaa; font-size: 16px; font-weight: 300;">
+                        I am a results-driven <strong>Creative Technologist</strong> and Full-Stack Developer. I specialize in crafting high-performance websites that offer seamless user experiences. My expertise lies in bridging the gap between imagination and reality through clean, efficient code.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 18px;">Expertise Arsenal</h3>
+                    <div class="skill-bar-wrap">
+                        <div class="skill-info"><span>Web Development</span><span>95%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                    </div>
+                    <div class="skill-bar-wrap">
+                        <div class="skill-info"><span>Automation & Bots</span><span>90%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 90%; background: var(--secondary);"></div></div>
+                    </div>
+                    <div class="skill-bar-wrap">
+                        <div class="skill-info"><span>UI/UX Design</span><span>85%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 85%; background: #fff;"></div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="comments">
+        <h2 class="title" data-aos="fade-up">Community Feed</h2>
+        <div class="card" data-aos="fade-up">
+            <div id="commentList" style="margin-bottom: 30px; max-height: 300px; overflow-y: auto;">
+                <p style="color: #555; text-align: center;">No feedback yet. Start the conversation!</p>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: 30px;">
+                <input type="text" id="userName" class="comment-input" placeholder="Your Name">
+                <textarea id="userComment" class="comment-input" rows="3" placeholder="Share your thoughts..."></textarea>
+                <button class="comment-btn" onclick="addComment()">Post Comment</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 PASIYA MODZ. ENGINEERED FOR THE MODERN WEB.</p>
+    </footer>
+
+    <button id="musicBtn"><i class="fas fa-play"></i></button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        if(cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+        }
+
+        // Comment System
+        function addComment() {
+            const name = document.getElementById('userName').value;
+            const text = document.getElementById('userComment').value;
+            if(name && text) {
+                const list = document.getElementById('commentList');
+                if(list.innerHTML.includes("No feedback yet")) list.innerHTML = "";
+                const div = document.createElement('div');
+                div.style.marginBottom = "15px";
+                div.innerHTML = `<h4 style="color:var(--primary); font-size:14px;">${name}</h4><p style="color:#888; font-size:14px;">${text}</p>`;
+                list.prepend(div);
+                document.getElementById('userName').value = "";
+                document.getElementById('userComment').value = "";
+            }
+        }
+
+        // Audio System
+        const audio = document.getElementById("bgPlayer");
+        const mBtn = document.getElementById("musicBtn");
+        let playing = false;
+        mBtn.onclick = () => {
+            if (!playing) {
+                audio.play();
+                mBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playing = true;
+            } else {
+                audio.pause();
+                mBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playing = false;
+            }
+        };
+    </script>
+</body>
+</html>
